@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Participants Directory</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Master Participants Ledger</h1>
+    <p>Overall cross-group net balance across all trips and bills</p>
+    <nav>
+      <a href="index.html">← Back to Bill Splitter</a> |
+      <a href="groups.html">View Individual Groups</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Navigation Tabs -->
+    <nav id="participants-nav" style="margin: 20px 0;">
+      <button type="button" class="tab-btn active" data-tab="all">All Participants (<span id="count-all">0</span>)</button>
+      <button type="button" class="tab-btn" data-tab="surplus">Surplus (<span id="count-surplus">0</span>)</button>
+      <button type="button" class="tab-btn" data-tab="deficit">Deficit (<span id="count-deficit">0</span>)</button>
+      <button type="button" class="tab-btn" data-tab="settled">Settled (<span id="count-settled">0</span>)</button>
+    </nav>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Participants Ledger - EquiShare</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="brand-container">
+      <div class="brand-logo-icon">⚡</div>
+      <div class="brand-text-group">
+        <h1 class="brand-title">Equi<span>Share</span></h1>
+        <p class="brand-tagline">Global Cross-Trip Settlement Engine</p>
+      </div>
+    </div>
+    <nav class="top-nav-bar">
+      <a href="index.html">Bill Splitter</a>
+      <span class="nav-divider"></span>
+      <a href="groups.html">Group Settlements Archive</a>
+      <span class="nav-divider"></span>
+      <a href="dashboard.html" class="active-nav">Master Participants Ledger</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Section 1: Global Multi-Trip Settlement Matrix (Who pays whom across all trips) -->
+    <section id="global-settlement-section">
+      <h2>🌐 Global Cross-Trip Settlement Plan</h2>
+      <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 16px;">
+        Consolidated settlement matching who owes whom after merging all trips and bills:
+      </p>
+      <div id="global-settlement-transactions"></div>
+    </section>
+
+    <!-- Section 2: Navigation Filter Tabs & Member Profiles -->
+    <section>
+      <h2>👥 All Participants Cross-Group Directory</h2>
+      <nav id="participants-nav" class="split-filter-bar">
+        <button type="button" class="filter-pill active" data-tab="all">All (<span id="count-all">0</span>)</button>
+        <button type="button" class="filter-pill" data-tab="surplus">📈 Surplus (<span id="count-surplus">0</span>)</button>
+        <button type="button" class="filter-pill" data-tab="deficit">📉 Deficit (<span id="count-deficit">0</span>)</button>
+        <button type="button" class="filter-pill" data-tab="settled">✓ Settled (<span id="count-settled">0</span>)</button>
+      </nav>
+
+      <div id="participants-list-container"></div>
+    </section>
+  </main>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
+
+    <!-- Tab Display Sections -->
+    <section id="tab-content-area">
+      <div id="participants-list-container"></div>
+    </section>
+  </main>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

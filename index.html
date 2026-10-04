@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Bill Splitter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Interactive Confetti Canvas Overlay -->
+  <canvas id="settlement-confetti-canvas"></canvas>
+    <!-- Lottery / Vending Machine Tracker -->
+  <aside id="remaining-balance-tracker" class="slot-machine-tracker">
+    <div class="slot-header">
+      <span class="live-indicator"></span>
+      <span class="slot-label">REMAINING BALANCE</span>
+    </div>
+    <div class="slot-window">
+      <span class="slot-reel-frame">
+        <span id="remaining-amount-display" class="slot-counter">0.00</span>
+      </span>
+    </div>
+  </aside>
+
+  <header>
+    <div class="brand-container">
+      <div class="brand-logo-icon">⚡</div>
+      <div class="brand-text-group">
+        <h1 class="brand-title">Equi<span>Share</span></h1>
+        <p class="brand-tagline">Smart Expense Equalizer & Multi-Group Ledger</p>
+      </div>
+    </div>
+    
+    <nav class="top-nav-bar">
+      <a href="index.html" class="active-nav">Bill Splitter</a>
+      <span class="nav-divider"></span>
+      <a href="groups.html">Group Settlements Archive</a>
+      <span class="nav-divider"></span>
+      <a href="dashboard.html">Master Participants Ledger</a>
+    </nav>
+  </header>
+  <!-- Animated Silent Hero Banner -->
+  <section class="hero-animation-banner">
+    <div class="hero-animation-content">
+      <span class="hero-chip">✨ Effortless Group Settlements</span>
+      <h2>Split Bills Fairly, Settle Instantly.</h2>
+      <p>Track shared dining, trips, and cross-group surpluses with automated balance ledgers.</p>
+    </div>
+
+    <!-- Continuous Looping Motion Graphic (Pure CSS & SVG) -->
+    <div class="hero-animation-graphic">
+      <div class="graphic-stage">
+        <!-- Floating Receipt -->
+        <div class="anim-receipt">
+          <div class="receipt-header">🧾 BILL</div>
+          <div class="receipt-line"></div>
+          <div class="receipt-line short"></div>
+          <div class="receipt-divider"></div>
+          <div class="receipt-total"><span>TOTAL</span> <span>₹2,400</span></div>
+        </div>
+
+        <!-- Orbiting / Floating Coins -->
+        <div class="floating-coin coin-1">₹</div>
+        <div class="floating-coin coin-2">$</div>
+        <div class="floating-coin coin-3">€</div>
+
+        <!-- Equalizing Balance Scale Base -->
+        <div class="anim-scale-beam">
+          <div class="scale-pan pan-left">
+            <span class="pan-avatar">AJ</span>
+            <span class="pan-tag">+₹200</span>
+          </div>
+          <div class="scale-pivot"></div>
+          <div class="scale-pan pan-right">
+            <span class="pan-avatar">SK</span>
+            <span class="pan-tag">-₹200</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <main>
+    <!-- Step 1: Group & Bill Setup -->
+     <!-- Interactive Quick Split Ratio Presets -->
+      <div class="preset-chips-container">
+        <label>⚡ Quick Presets:</label>
+        <div class="preset-chips-row">
+          <button type="button" class="preset-chip active" data-preset="equal">Equal (1/N)</button>
+          <button type="button" class="preset-chip" data-preset="single-payer">One Paid All</button>
+          <button type="button" class="preset-chip" data-preset="custom">Custom Dining</button>
+        </div>
+      </div>
+    <section id="bill-setup-section">
+      <h2>Step 1: Group & Bill Details</h2>
+      <!-- Split Method Dropdown inside Step 1 -->
+      <div>
+        <label for="split-method">Split Method:</label>
+        <select id="split-method">
+          <option value="EQUAL" selected>Equal Split (Equal share for all)</option>
+          <option value="CUSTOM">Custom Split (Enter individual consumption / share)</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="group-name">Group Name (Required):</label>
+        <input type="text" id="group-name" placeholder="e.g. Goa Trip" required>
+      </div>
+
+      <div>
+        <label for="bill-currency">Currency in which bill was paid:</label>
+        <select id="bill-currency">
+          <option value="INR" selected>INR (₹)</option>
+          <option value="USD">USD ($)</option>
+          <option value="EURO">EURO (€)</option>
+          <option value="DHIRAMH">DHIRAMH (AED)</option>
+          <option value="DINAR">DINAR (KWD)</option>
+          <option value="YEN">YEN (¥)</option>
+          <option value="RUBEL">RUBEL (₽)</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="total-bill">Total Bill Amount:</label>
+        <input type="number" id="total-bill" placeholder="e.g. 100" min="0" step="0.01">
+      </div>
+
+      <div id="inr-conversion-preview">
+        <p><strong>Total Bill in INR:</strong> ₹<span id="converted-inr-amount">0.00</span></p>
+      </div>
+
+      <div>
+        <label for="split-currency-preference">Calculate and split final bill in:</label>
+        <select id="split-currency-preference">
+          <option value="INR">INR (₹)</option>
+          <option value="ORIGINAL" id="original-currency-option">Original Bill Currency (INR)</option>
+        </select>
+      </div>
+      <!-- Add this dropdown in Step 1
+      <div>
+        <label for="split-method">Split Method:</label>
+        <select id="split-method">
+          <option value="EQUAL" selected>Equal Split (Divide bill equally)</option>
+          <option value="CUSTOM">Custom Split (Enter each person's exact share / food eaten)</option>
+        </select> -->
+
+      <div>
+        <label for="num-users">Number of Participants:</label>
+        <input type="number" id="num-users" placeholder="e.g. 3" min="1" step="1">
+      </div>
+
+      <button type="button" id="generate-btn">Generate Participant Fields</button>
+    </section>
+
+    <!-- Step 2: Dynamic Inputs -->
+    <section id="participants-section">
+      <h2>Step 2: Participant Information</h2>
+      <div id="participants-container"></div>
+
+      <div id="actions-container">
+        <button type="button" id="calculate-btn">Calculate Split & Preferences</button>
+        <p id="validation-message"></p>
+      </div>
+    </section>
+
+    <!-- Step 3: Breakdown, Settlement Decision Choices & Final Save -->
+    <section id="results-section">
+      <h2>Step 3: Settlement Summary & Preferences</h2>
+      
+      <div id="summary-overview"></div>
+      <div id="balances-list"></div>
+
+      <div id="preferences-confirmation-area">
+        <button type="button" id="finalize-save-btn" style="display: none;">Save Group Data & Generate Final Plan</button>
+      </div>
+
+      <div id="settlement-plan"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+<!-- Raining Money & Coin Canvas (MS Teams style) -->
+  <canvas id="money-rain-canvas"></canvas>
+</html>

@@ -1,0 +1,1724 @@
+/* =========================================================
+   1. DESIGN TOKENS
+   ========================================================= */
+:root {
+  --primary: #059669;
+  --primary-glow: rgba(16, 185, 129, 0.35);
+  --primary-hover: #047857;
+  --primary-light: #ecfdf5;
+  --brand-gradient: linear-gradient(135deg, #059669 0%, #10b981 40%, #06b6d4 100%);
+  
+  --bg-page: #f0fdf4; 
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #f8fafc;
+  
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-subtle: #e2e8f0;
+  --border-focus: #10b981;
+  
+  --surplus-bg: #f0fdf4;
+  --surplus-border: #86efac;
+  --surplus-text: #15803d;
+  
+  --deficit-bg: #fff1f2;
+  --deficit-border: #fca5a5;
+  --deficit-text: #be123c;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+  background-color: var(--bg-page);
+  background-image: 
+    radial-gradient(circle at 0% 0%, rgba(52, 211, 153, 0.3) 0%, rgba(52, 211, 153, 0) 55%),
+    radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.25) 0%, rgba(56, 189, 248, 0) 50%),
+    radial-gradient(circle at 50% 100%, rgba(251, 191, 36, 0.18) 0%, rgba(251, 191, 36, 0) 60%);
+  background-attachment: fixed;
+  color: var(--text-main);
+  line-height: 1.6;
+  font-size: 15px;
+  padding: 32px 20px 90px;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* =========================================================
+   2. HEADER & BRAND
+   ========================================================= */
+header {
+  max-width: 920px;
+  margin: 0 auto 36px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.brand-logo-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--brand-gradient);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 8px 20px var(--primary-glow);
+  animation: pulseGlow 3s infinite alternate;
+}
+
+.brand-title {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #065f46 0%, #059669 50%, #0284c7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.brand-title span {
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.brand-tagline {
+  font-size: 13px;
+  color: #475569;
+  font-weight: 600;
+}
+
+.top-nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+
+.top-nav-bar a {
+  text-decoration: none;
+  background: #ffffff;
+  color: #334155;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  transition: var(--transition);
+}
+
+.top-nav-bar a:hover,
+.top-nav-bar a.active-nav {
+  background: #ecfdf5;
+  color: var(--primary-hover);
+  border-color: #86efac;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+  transform: translateY(-2px);
+}
+
+.nav-divider {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--border-subtle);
+}
+
+/* =========================================================
+   3. SLOT MACHINE REMAINING TRACKER
+   ========================================================= */
+.slot-machine-tracker {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  z-index: 1000;
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  border: 2px solid #f59e0b;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25), 0 0 18px rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 200px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: floatIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slot-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.live-indicator {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
+  animation: blinkIndicator 1.5s infinite;
+}
+
+.slot-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #fbbf24;
+  text-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
+}
+
+.slot-window {
+  background: #020617;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 6px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+  position: relative;
+}
+
+.slot-window::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+.slot-counter {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 20px;
+  font-weight: 800;
+  color: #10b981;
+  text-shadow: 0 0 12px rgba(16, 185, 129, 0.85);
+  letter-spacing: 0.05em;
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.slot-counter.spin-reel {
+  animation: reelSpin 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* =========================================================
+   4. SECTIONS & CONTAINERS
+   ========================================================= */
+main {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+section {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: 0 12px 30px -4px rgba(16, 24, 40, 0.07), 0 4px 12px -2px rgba(16, 24, 40, 0.03);
+  transition: var(--transition);
+  animation: fadeInUp 0.5s ease-out;
+}
+
+section:hover {
+  border-color: #cbd5e1;
+}
+
+section h2 {
+  font-size: 21px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 22px;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* =========================================================
+   5. FORM INPUTS & LABELS
+   ========================================================= */
+label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.input-icon {
+  font-size: 14px;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  color: #0f172a;
+  background-color: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: var(--transition);
+  margin-bottom: 14px;
+}
+
+input:focus,
+select:focus {
+  background-color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+#inr-conversion-preview {
+  background: rgba(5, 150, 105, 0.08);
+  border: 1px solid rgba(5, 150, 105, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin: 12px 0 18px;
+}
+
+#inr-conversion-preview p {
+  color: #047857;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   6. INTERACTIVE PARTICIPANT FORM CARDS (STEP 2)
+   ========================================================= */
+.participant-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+  transition: var(--transition);
+  animation: cardScaleUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.participant-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -3px rgba(15, 23, 42, 0.08);
+  border-color: #cbd5e1;
+}
+
+.card-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.participant-avatar-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--brand-gradient);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px var(--primary-glow);
+  letter-spacing: -0.02em;
+}
+
+.card-header-bar h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.card-grid-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.phone-feedback {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: -8px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* =========================================================
+   7. STYLED STEP 3 RESULTS & SETTLEMENT CARDS
+   ========================================================= */
+.status-overview-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 18px 0 24px;
+}
+
+.overview-metric-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+}
+
+.overview-metric-card .metric-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.overview-metric-card .metric-val {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-top: 4px;
+}
+
+.action-result-card {
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+  animation: cardScaleUp 0.3s ease-out;
+}
+
+.action-result-card.surplus-card {
+  background: var(--surplus-bg);
+  border: 1.5px solid var(--surplus-border);
+}
+
+.action-result-card.deficit-card {
+  background: var(--deficit-bg);
+  border: 1.5px solid var(--deficit-border);
+}
+
+.action-result-card.settled-card {
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+}
+
+.result-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.user-identity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-chip {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.status-chip.surplus-chip {
+  background: #dcfce7;
+  color: var(--surplus-text);
+  border: 1px solid #86efac;
+}
+
+.status-chip.deficit-chip {
+  background: #ffe4e6;
+  color: var(--deficit-text);
+  border: 1px solid #fecdd3;
+}
+
+.status-chip.settled-chip {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.result-explanation-text {
+  font-size: 14px;
+  color: #334155;
+  margin-bottom: 12px;
+}
+
+.styled-action-select {
+  background-color: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+/* =========================================================
+   8. BUTTONS
+   ========================================================= */
+button {
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  padding: 13px 24px;
+  border: none;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+#generate-btn,
+#calculate-btn,
+#search-group-btn {
+  background: var(--brand-gradient);
+  color: #ffffff;
+  width: 100%;
+  box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+#generate-btn:hover,
+#calculate-btn:hover,
+#search-group-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px var(--primary-glow);
+}
+
+#finalize-save-btn {
+  background: #0f172a;
+  color: #ffffff;
+  margin-top: 18px;
+  padding: 14px 28px;
+  width: 100%;
+}
+
+#finalize-save-btn:hover {
+  background: #1e293b;
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   9. KEYFRAME ANIMATIONS
+   ========================================================= */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardScaleUp {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 16px rgba(5, 150, 105, 0.3); }
+  100% { box-shadow: 0 0 28px rgba(6, 182, 212, 0.6); }
+}
+
+@keyframes blinkIndicator {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.85); }
+}
+
+@keyframes reelSpin {
+  0% { transform: translateY(-30px); opacity: 0; }
+  60% { transform: translateY(6px); opacity: 1; }
+  100% { transform: translateY(0); }
+}
+
+/* Mobile responsive */
+@media (max-width: 680px) {
+  body {
+    padding: 16px 12px 60px;
+  }
+  .card-grid-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .slot-machine-tracker {
+    position: static;
+    margin-bottom: 24px;
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   1. INJECT ICONS VIA CSS (MAN, PHONE, MONEY/BILL)
+   ========================================================= */
+
+/* Wrap and position context for inputs */
+.participant-card label {
+  position: relative;
+  display: block;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+/* Man / Person Icon for Name fields */
+.participant-name,
+input#search-group-name {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23059669'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 12px center;
+  background-size: 20px 20px;
+  padding-left: 42px !important;
+}
+
+/* Phone Icon for Phone fields */
+.participant-phone {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23059669'%3E%3Cpath d='M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 12px center;
+  background-size: 20px 20px;
+  padding-left: 42px !important;
+}
+
+/* Money / Bill / Cash Icon for Bill & Amount fields */
+#total-bill,
+.participant-paid {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2310b981'%3E%3Cpath d='M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 12px center;
+  background-size: 20px 20px;
+  padding-left: 42px !important;
+}
+
+/* Group Name Icon */
+#group-name {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23059669'%3E%3Cpath d='M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 12px center;
+  background-size: 20px 20px;
+  padding-left: 42px !important;
+}
+
+/* Active glow highlight on focus with icons */
+.participant-name:focus,
+.participant-phone:focus,
+.participant-paid:focus,
+#total-bill:focus,
+#group-name:focus {
+  background-color: #ffffff;
+  border-color: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.22);
+}
+
+/* =========================================================
+   2. HIGH-END RESULT SECTION TYPOGRAPHY & DESIGN
+   ========================================================= */
+
+#results-section {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1.5px solid #cbd5e1;
+  box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.1);
+  overflow: hidden;
+}
+
+/* Results Section Header with animated badge */
+#results-section h2 {
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#results-section h2::before {
+  content: "📊";
+  font-size: 24px;
+  animation: pulseIcon 2s infinite ease-in-out;
+}
+
+/* Subheadings with icon tags */
+#results-section h3 {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #1e293b;
+  margin: 24px 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Overview card typography */
+#summary-overview p {
+  font-size: 15px;
+  color: #334155;
+  margin: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#summary-overview p strong {
+  color: #0f172a;
+}
+
+/* Surplus / Deficit Headings */
+#results-section h4 {
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 18px 0 10px;
+}
+
+/* Animated Result Items */
+#results-section li {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  font-size: 15px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideInResult 0.4s ease-out;
+}
+
+#results-section li:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+}
+
+/* Recommended Settlement Plan List Items (Who pays whom) */
+#settlement-plan ol li {
+  background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
+  border-left: 5px solid #10b981;
+  border-color: #86efac;
+  font-weight: 600;
+  color: #065f46;
+}
+
+#settlement-plan ol li::before {
+  content: "💸";
+  margin-right: 8px;
+  display: inline-block;
+  animation: bouncePay 1.8s infinite;
+}
+
+/* Validation Alert Banner Enhancement */
+#validation-message {
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 14px;
+  display: inline-block;
+  animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* =========================================================
+   3. RESULT MICRO-ANIMATIONS
+   ========================================================= */
+
+@keyframes slideInResult {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseIcon {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15) rotate(4deg);
+  }
+}
+
+@keyframes bouncePay {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================================================
+   INTERACTIVE PARTICIPANT SPLIT STATUS ENHANCEMENTS
+   ========================================================= */
+
+/* Filter Pills Bar */
+.split-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0 24px;
+  flex-wrap: wrap;
+}
+
+.filter-pill {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  color: #475569;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.filter-pill:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+}
+
+.filter-pill.active {
+  background: var(--brand-gradient);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 14px var(--primary-glow);
+}
+
+.pill-badge {
+  background: rgba(0, 0, 0, 0.08);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+}
+
+.filter-pill.active .pill-badge {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+/* Enhanced Status Cards */
+.action-result-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 20px;
+  border: 1.5px solid #e2e8f0;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.action-result-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+.action-result-card.surplus-card {
+  border-left: 6px solid #10b981;
+  background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+}
+
+.action-result-card.deficit-card {
+  border-left: 6px solid #f43f5e;
+  background: linear-gradient(180deg, #fff1f2 0%, #ffffff 100%);
+}
+
+.action-result-card.settled-card {
+  border-left: 6px solid #64748b;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+}
+
+/* Progress / Financial Meter */
+.card-meter-wrapper {
+  margin: 14px 0 16px;
+}
+
+.meter-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.meter-track {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.meter-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.surplus-card .meter-fill {
+  background: linear-gradient(90deg, #34d399, #059669);
+}
+
+.deficit-card .meter-fill {
+  background: linear-gradient(90deg, #fb7185, #e11d48);
+}
+
+.settled-card .meter-fill {
+  background: linear-gradient(90deg, #94a3b8, #475569);
+}
+
+/* Interactive Action Buttons (Replacing plain select dropdowns) */
+.choice-tiles-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.choice-tile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+  user-select: none;
+}
+
+.choice-tile:hover {
+  border-color: #94a3b8;
+  background: #f8fafc;
+}
+
+.choice-tile.selected {
+  border-color: var(--primary);
+  background: #ecfdf5;
+  color: #065f46;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.choice-tile-icon {
+  font-size: 18px;
+}
+
+.choice-tile input[type="radio"] {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .choice-tiles-group {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   CUSTOM STYLISH DROPDOWN / SELECT MENUS
+   ========================================================= */
+
+/* Reset native system appearances */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  position: relative;
+  
+  /* Modern typography & layout */
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #0f172a;
+  
+  /* High-end FinTech pill surface */
+  background-color: #ffffff !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23059669' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px 18px;
+  
+  /* Spacing: padding-right ensures text doesn't overlap the chevron arrow */
+  padding: 12px 44px 12px 16px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 5px rgba(15, 23, 42, 0.04);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover state: slight lift and border highlight */
+select:hover {
+  border-color: #10b981 !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
+  background-color: #f8fafc !important;
+  transform: translateY(-1px);
+}
+
+/* Active / Focused state: glowing emerald halo & rotated chevron arrow */
+select:focus {
+  outline: none;
+  border-color: #059669 !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2), 0 6px 16px rgba(5, 150, 105, 0.12) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23047857' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* Special styling for currency selectors (Step 1 & Participant cards) */
+#bill-currency,
+.participant-currency {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #065f46;
+  background-color: #f0fdf4 !important;
+  border-color: #a7f3d0 !important;
+}
+
+#bill-currency:hover,
+.participant-currency:hover {
+  background-color: #ecfdf5 !important;
+  border-color: #34d399 !important;
+}
+
+/* Styling for the Split Method selection dropdown */
+#split-method {
+  font-weight: 700;
+  color: #1e293b;
+  border-left: 4px solid #059669 !important;
+}
+
+/* Pop-out Dropdown Options Styling */
+select option {
+  font-weight: 600;
+  color: #0f172a;
+  background-color: #ffffff;
+  padding: 12px 16px;
+}
+
+select option:checked {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%) !important;
+  color: #065f46 !important;
+  font-weight: 800;
+}
+
+/* =========================================================
+   CUSTOM INTERACTIVE DROPDOWN (UI REPLACEMENT)
+   ========================================================= */
+
+/* Hide native selects that have been replaced */
+.custom-select-native-hidden {
+  position: absolute !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Dropdown Container */
+.custom-dropdown {
+  position: relative;
+  width: 100%;
+  margin-bottom: 16px;
+  user-select: none;
+}
+
+/* Trigger Button */
+.custom-dropdown-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0f172a;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.custom-dropdown-trigger:hover {
+  border-color: #10b981;
+  background: #f8fafc;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.custom-dropdown.open .custom-dropdown-trigger {
+  border-color: #059669;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+  background: #ffffff;
+}
+
+.trigger-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.trigger-badge {
+  background: #ecfdf5;
+  color: #047857;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  border: 1px solid #a7f3d0;
+}
+
+.trigger-chevron {
+  font-size: 12px;
+  color: #64748b;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.custom-dropdown.open .trigger-chevron {
+  transform: rotate(180deg);
+  color: #059669;
+}
+
+/* Dropdown Flyout Menu */
+.custom-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid #cbd5e1;
+  border-radius: 14px;
+  box-shadow: 0 14px 35px -5px rgba(15, 23, 42, 0.15), 0 0 1px rgba(0, 0, 0, 0.1);
+  z-index: 1050;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.98);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 290px;
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-dropdown.open .custom-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* Search bar inside dropdown */
+.dropdown-search-wrapper {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  background: #f8fafc;
+}
+
+.dropdown-search-input {
+  width: 100%;
+  padding: 8px 12px 8px 32px !important;
+  font-size: 13px !important;
+  border-radius: 8px !important;
+  border: 1px solid #e2e8f0 !important;
+  margin-bottom: 0 !important;
+  background-color: #ffffff !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+
+/* Options List */
+.dropdown-options-list {
+  overflow-y: auto;
+  padding: 6px;
+  list-style: none;
+}
+
+.custom-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+  transition: all 0.18s ease;
+  margin-bottom: 2px;
+}
+
+.custom-dropdown-item:hover {
+  background: #f0fdf4;
+  color: #065f46;
+  transform: translateX(4px);
+}
+
+.custom-dropdown-item.selected {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  color: #047857;
+  font-weight: 800;
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.item-icon {
+  font-size: 16px;
+  width: 24px;
+  text-align: center;
+}
+
+.item-rate-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.custom-dropdown-item.selected .item-rate-tag {
+  background: #a7f3d0;
+  color: #065f46;
+}
+
+/* =========================================================
+   HERO ANIMATION BANNER (CONTINUOUS SILENT LOOP)
+   ========================================================= */
+.hero-animation-banner {
+  max-width: 920px;
+  margin: 0 auto 32px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 253, 244, 0.8));
+  border: 1.5px solid #a7f3d0;
+  border-radius: var(--radius-lg);
+  padding: 32px 36px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: 32px;
+  box-shadow: 0 16px 36px -8px rgba(5, 150, 105, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-chip {
+  display: inline-block;
+  background: #ecfdf5;
+  color: #047857;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid #86efac;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hero-animation-content h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.25;
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+
+.hero-animation-content p {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* Graphic Stage Container */
+.hero-animation-graphic {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+.graphic-stage {
+  position: relative;
+  width: 260px;
+  height: 190px;
+}
+
+/* Floating Receipt Animation */
+.anim-receipt {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  width: 100px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 8px 10px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  animation: floatUpDown 4s ease-in-out infinite alternate;
+  z-index: 2;
+}
+
+.receipt-header {
+  font-size: 10px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.receipt-line {
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 2px;
+  margin-bottom: 4px;
+}
+
+.receipt-line.short {
+  width: 60%;
+}
+
+.receipt-divider {
+  border-top: 1px dashed #cbd5e1;
+  margin: 6px 0;
+}
+
+.receipt-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  font-weight: 800;
+  color: #059669;
+}
+
+/* Floating Currency Coins Loop */
+.floating-coin {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 14px rgba(245, 158, 11, 0.4);
+  z-index: 3;
+}
+
+.coin-1 {
+  top: 15px;
+  right: 35px;
+  animation: coinFloatOne 3.2s infinite ease-in-out;
+}
+
+.coin-2 {
+  top: 75px;
+  right: 15px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 6px 14px rgba(16, 185, 129, 0.35);
+  animation: coinFloatTwo 4s infinite ease-in-out;
+}
+
+.coin-3 {
+  bottom: 30px;
+  left: 20px;
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  box-shadow: 0 6px 14px rgba(2, 132, 199, 0.35);
+  animation: coinFloatThree 3.6s infinite ease-in-out;
+}
+
+/* Balance Scale Animation (Equalizing bills) */
+.anim-scale-beam {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 170px;
+  height: 4px;
+  background: #475569;
+  border-radius: 2px;
+  animation: balanceTilt 5s ease-in-out infinite alternate;
+  transform-origin: center center;
+}
+
+.scale-pivot {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 18px solid #334155;
+}
+
+.scale-pan {
+  position: absolute;
+  top: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.pan-left {
+  left: -8px;
+}
+
+.pan-right {
+  right: -8px;
+}
+
+.pan-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #10b981;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pan-right .pan-avatar {
+  background: #f43f5e;
+}
+
+.pan-tag {
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.pan-left .pan-tag {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.pan-right .pan-tag {
+  background: #ffe4e6;
+  color: #e11d48;
+}
+
+/* =========================================================
+   KEYFRAME ANIMATION LOOPS
+   ========================================================= */
+@keyframes floatUpDown {
+  0% { transform: translateY(0) rotate(-3deg); }
+  100% { transform: translateY(-12px) rotate(2deg); }
+}
+
+@keyframes balanceTilt {
+  0% { transform: translateX(-50%) rotate(-6deg); }
+  50% { transform: translateX(-50%) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(6deg); }
+}
+
+@keyframes coinFloatOne {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-14px) scale(1.08) rotate(15deg); }
+}
+
+@keyframes coinFloatTwo {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(0.95) rotate(-12deg); }
+}
+
+@keyframes coinFloatThree {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-12px) scale(1.05) rotate(10deg); }
+}
+
+/* Responsive adjustment */
+@media (max-width: 720px) {
+  .hero-animation-banner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 24px;
+  }
+  .hero-animation-graphic {
+    height: 180px;
+  }
+}
+
+/* =========================================================
+   CONFETTI, QUICK-PRESETS & MONEY FLOW ANIMATIONS
+   ========================================================= */
+
+/* Confetti Fullscreen Overlay */
+#settlement-confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Quick Preset Chips */
+.preset-chips-container {
+  margin: 12px 0 16px;
+}
+
+.preset-chips-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.preset-chip {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.preset-chip:hover {
+  background: #ecfdf5;
+  border-color: #86efac;
+  transform: translateY(-2px) scale(1.03);
+}
+
+.preset-chip.active {
+  background: var(--brand-gradient);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+/* Money Flow Visualization Ribbon */
+.money-flow-stage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  border: 1.5px solid #334155;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 12px 0;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.money-flow-stage::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.25), transparent);
+  animation: shimmerSweep 3s infinite linear;
+}
+
+.flow-participant {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 2;
+}
+
+.flow-node-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.flow-node-avatar.debtor {
+  background: linear-gradient(135deg, #f43f5e, #be123c);
+  box-shadow: 0 0 14px rgba(244, 63, 94, 0.5);
+}
+
+.flow-node-avatar.creditor {
+  background: linear-gradient(135deg, #10b981, #047857);
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.5);
+}
+
+.flow-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+/* Animated connecting transaction track */
+.flow-stream-line {
+  flex: 1;
+  position: relative;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 18px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flow-amount-pill {
+  position: relative;
+  z-index: 3;
+  background: #f59e0b;
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 3px 10px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.8);
+  animation: pulseGlowPill 2s infinite alternate;
+}
+
+.flow-animated-particle {
+  position: absolute;
+  top: -3px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 10px #34d399;
+  animation: streamParticle 2s infinite cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+@keyframes streamParticle {
+  0% { left: 0%; opacity: 0; transform: scale(0.6); }
+  20% { opacity: 1; transform: scale(1.1); }
+  80% { opacity: 1; transform: scale(1.1); }
+  100% { left: 100%; opacity: 0; transform: scale(0.6); }
+}
+
+@keyframes shimmerSweep {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+@keyframes pulseGlowPill {
+  0% { transform: scale(0.96); box-shadow: 0 0 6px rgba(245, 158, 11, 0.4); }
+  100% { transform: scale(1.04); box-shadow: 0 0 16px rgba(245, 158, 11, 0.9); }
+}
+
+/* =========================================================
+   MS TEAMS STYLE RAINING MONEY & COIN BURST CANVAS
+   ========================================================= */
+#money-rain-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+}

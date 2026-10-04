@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Group Settlements Lookup</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Group Settlements Archive</h1>
+    <nav>
+      <a href="index.html">← Back to Bill Splitter</a>
+      <button type="button" id="clear-all-data-btn" style="margin-left: 20px; color: red;">Clear Stored Test Data</button>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Search Your Group</h2>
+      <div>
+        <label for="search-group-name">Enter Group Name:</label>
+        <input type="text" id="search-group-name" placeholder="e.g. goa">
+        <button type="button" id="search-group-btn">View Settlements</button>
+      </div>
+    </section>
+
+    <section id="group-results-section">
+      <div id="group-details"></div>
+      <div id="group-surplus-list"></div>
+      <div id="group-deficit-list"></div>
+      <div id="group-settled-list"></div>
+      <div id="group-rollover-wallet"></div>
+    </section>
+  </main>
+
+  <script src="groups.js"></script>
+</body>
+</html>
